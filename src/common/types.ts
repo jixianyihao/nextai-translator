@@ -140,6 +140,11 @@ export interface ISettings {
     cohereAPIModel: string
     cerebrasAPIKey: string
     cerebrasAPIModel: string
+    customAPIKey: string
+    customAPIModel: string
+    customAPIURL: string
+    customAPIURLPath: string
+    customCustomModelName: string
     fontSize: number
     uiFontSize: number
     iconSize: number

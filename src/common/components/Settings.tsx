@@ -1415,6 +1415,7 @@ export function ProviderSelector({ value, onChange, hasPromotion }: IProviderSel
               { label: 'Groq', id: 'Groq' },
               { label: 'DeepSeek', id: 'DeepSeek' },
               { label: 'Cerebras', id: 'Cerebras' },
+              { label: 'Anthropic Compatible', id: 'Custom' },
           ] as {
               label: string
               id: Provider
@@ -1433,6 +1434,7 @@ export function ProviderSelector({ value, onChange, hasPromotion }: IProviderSel
               { label: 'Groq', id: 'Groq' },
               { label: 'DeepSeek', id: 'DeepSeek' },
               { label: 'Cerebras', id: 'Cerebras' },
+              { label: 'Anthropic Compatible', id: 'Custom' },
           ] as {
               label: string
               id: Provider
@@ -3242,6 +3244,56 @@ export function InnerSettings({
                                     apiKey={values.cerebrasAPIKey}
                                     onBlur={onBlur}
                                 />
+                            </FormItem>
+                        </div>
+                        <div
+                            style={{
+                                display: values.provider === 'Custom' ? 'block' : 'none',
+                            }}
+                        >
+                            <FormItem required={values.provider === 'Custom'} name='customAPIKey' label={t('API Key')}>
+                                <Input autoFocus type='password' size='compact' onBlur={onBlur} />
+                            </FormItem>
+                            <FormItem
+                                name='customAPIModel'
+                                label={t('API Model')}
+                                required={values.provider === 'Custom'}
+                            >
+                                <APIModelSelector
+                                    provider='Custom'
+                                    currentProvider={values.provider}
+                                    onBlur={onBlur}
+                                    apiKey={values.customAPIKey}
+                                />
+                            </FormItem>
+                            <div
+                                style={{
+                                    display: values.customAPIModel === CUSTOM_MODEL_ID ? 'block' : 'none',
+                                }}
+                            >
+                                <FormItem
+                                    name='customCustomModelName'
+                                    label={t('Custom Model Name')}
+                                    required={values.provider === 'Custom' && values.customAPIModel === CUSTOM_MODEL_ID}
+                                >
+                                    <Input autoComplete='off' size='compact' />
+                                </FormItem>
+                            </div>
+                            <FormItem
+                                name='customAPIURL'
+                                label={t('API URL')}
+                                required={values.provider === 'Custom'}
+                                caption={t('Supports any Anthropic-compatible provider.')}
+                            >
+                                <Input size='compact' onBlur={onBlur} />
+                            </FormItem>
+                            <FormItem
+                                name='customAPIURLPath'
+                                label={t('API URL Path')}
+                                required={values.provider === 'Custom'}
+                                caption={t('Default: /v1/messages (Anthropic format)')}
+                            >
+                                <Input size='compact' onBlur={onBlur} />
                             </FormItem>
                         </div>
                         <FormItem name='defaultTranslateMode' label={t('Default Action')}>

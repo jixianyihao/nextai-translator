@@ -1439,6 +1439,10 @@ function InnerTranslator(props: IInnerTranslatorProps) {
             setShowSettings(true)
             return
         }
+        if (settings.provider === 'Custom' && !settings.customAPIKey) {
+            setShowSettings(true)
+            return
+        }
         if (settings.provider === 'Groq' && !settings.groqAPIKey) {
             setShowSettings(true)
             return

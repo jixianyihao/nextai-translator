@@ -111,6 +111,11 @@ const settingKeys: Record<keyof ISettings, number> = {
     deepSeekAPIModel: 1,
     cerebrasAPIKey: 1,
     cerebrasAPIModel: 1,
+    customAPIKey: 1,
+    customAPIModel: 1,
+    customAPIURL: 1,
+    customAPIURLPath: 1,
+    customCustomModelName: 1,
     fontSize: 1,
     uiFontSize: 1,
     iconSize: 1,
@@ -234,6 +239,12 @@ export async function getSettings(): Promise<ISettings> {
     }
     if (!settings.claudeAPIURLPath) {
         settings.claudeAPIURLPath = '/v1/messages'
+    }
+    if (!settings.customAPIURL) {
+        settings.customAPIURL = 'https://api.anthropic.com'
+    }
+    if (!settings.customAPIURLPath) {
+        settings.customAPIURLPath = '/v1/messages'
     }
     if (settings.geminiAPIURL === undefined || settings.geminiAPIURL === null) {
         settings.geminiAPIURL = defaultGeminiAPIURL
@@ -587,6 +598,8 @@ export function getAPIKeyForProvider(provider: string, settings: ISettings): str
             return settings.kimiAccessToken
         case 'ChatGLM':
             return settings.chatglmAccessToken
+        case 'Custom':
+            return settings.customAPIKey
         case 'ChatGPT':
         case 'Ollama':
             return undefined
